@@ -14,15 +14,17 @@ async function getLocation() {
     navigator.geolocation.getCurrentPosition(resolve,reject)
   })
 }
+const position = await getLocation()
 
 // response
 const res = await ai.chat.completions.create({
-  model: "gpt-4",
+  model: "gpt-4.1-2025-04-14",
   messages: [
     {
       role:"user",
-      content : "Give me a list of activity ideas based on my current location and weather"
+      content : `hi! whats this cordinates near to, the cords are ${position.coords.latitude}, ${position.coords.longitude}`
     }
   ]
 })
-console.log(res)
+console.log(res.choices[0].message.content)
+

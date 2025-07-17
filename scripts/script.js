@@ -26,9 +26,6 @@ the actions.
 4. Observation: will be the result of running those actions.
 
 Available actions:
-- getCurrentWeather: 
-    E.g. getCurrentWeather: Salt Lake City
-    Returns the current weather of the location specified.
 - getLocation:
     E.g. getLocation: null
     Returns user's location details. No arguments needed.
@@ -54,6 +51,25 @@ You then output:
 Answer: <Suggested activities based on sunny weather that are highly specific to New York City and surrounding areas.>
 `
 
+// Function to perform ReAct
+async function agent(query) {
+  const messages = {
+    role : "system",
+    content : systemPrompt
+  }
+  const res = await ai.chat.completions.create({
+    model: "gpt-4.1-2025-04-14",
+    messages: [
+      {
+        role:"user",
+        content : `hi! whats this cordinates near to, the cords are ${position.coords.latitude}, ${position.coords.longitude}`
+      }
+    ]
+  })
+  console.log(res.choices[0].message.content)
+}
+
+agent()
 
 
 
@@ -76,14 +92,6 @@ Answer: <Suggested activities based on sunny weather that are highly specific to
 
 
 // response
-// const res = await ai.chat.completions.create({
-//   model: "gpt-4.1-2025-04-14",
-//   messages: [
-//     {
-//       role:"user",
-//       content : `hi! whats this cordinates near to, the cords are ${position.coords.latitude}, ${position.coords.longitude}`
-//     }
-//   ]
-// })
+
 // console.log(res.choices[0].message.content)
 

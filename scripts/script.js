@@ -8,6 +8,13 @@ const ai = new OpenAI({
   dangerouslyAllowBrowser : true
 })
 
+// location
+async function getLocation() {
+  return new Promise((resolve, reject)=>{
+    navigator.geolocation.getCurrentPosition(resolve,reject)
+  })
+}
+
 // response
 const res = await ai.chat.completions.create({
   model: "gpt-4",
